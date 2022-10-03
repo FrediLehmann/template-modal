@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Modal</title>
+    <style type="text/css">
+      /* Default page styles */
+
+      :root {
+        font-size: 16px;
+      }
+
+      body {
+        padding: 2rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+        max-width: 60ch;
+        margin-inline: auto;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        color: #1f1f1f;
+        margin-block-end: 2rem;
+      }
+
+      button {
+        padding: 0.5rem 0.75rem;
+
+        border: none;
+        border-radius: 0.125rem;
+
+        font-size: 1rem;
+        color: #1f1f1f;
+      }
+
+      section#informations button ~ button {
+        margin-inline-start: 0.5rem;
+      }
+
+      button:hover {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Modal</h1>
+
+    <section id="informations">
+      <style>
+        #informations {
+          margin-block-end: 2.5rem;
+        }
+
+        #informations code {
+          background-color: #cfcfcf;
+          padding: 1px 2px;
+          border-radius: 2px;
+        }
+      </style>
+      <p>
+        Modal component using the <code>dialog</code> tag. The dialog tag works
+        with the latest browsers, if you need to support older browsers you
+        might need to resort to
+        <a href="https://a11y-dialog.netlify.app">a11y-dialog</a>. You might
+        check browser support <a href="https://caniuse.com/dialog">here</a>.
+      </p>
+    </section>
+
+    <section id="modal">
+      <button onclick="openDialog()">Open</button>
+
+      <dialog id="myDialog">
+        <button class="xButton" aria-label="close" onclick="closeDialog()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="1.25rem"
+            height="1.25rem"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi unde,
+          ex rem voluptates autem aliquid veniam quis temporibus repudiandae
+          illo, nostrum, pariatur quae! At animi modi dignissimos corrupti
+          placeat voluptatum!
+        </p>
+        <img src="https://placebear.com/400/200" alt="" />
+        <p>
+          Facilis ducimus iure officia quos possimus quaerat iusto, quas,
+          laboriosam sapiente autem ab assumenda eligendi voluptatum nisi eius
+          cumque, tempore reprehenderit optio placeat praesentium non sint
+          repellendus consequuntur? Nihil, soluta.
+        </p>
+        <form method="dialog">
+          <button data-type="primary">Save</button>
+          <button>Cancel</button>
+        </form>
+      </dialog>
+
+      <script>
+        function openDialog() {
+          const dialog = document.querySelector("dialog#myDialog");
+          dialog.showModal();
+
+          // Attach backdrop click close handler
+          dialog.addEventListener("click", function (event) {
+            const rect = dialog.getBoundingClientRect();
+            const isInDialog =
+              rect.top <= event.clientY &&
+              event.clientY <= rect.top + rect.height &&
+              rect.left <= event.clientX &&
+              event.clientX <= rect.left + rect.width;
+            if (!isInDialog) {
+              dialog.close();
+            }
+          });
+        }
+
+        function closeDialog() {
+          document.querySelector("dialog#myDialog").close();
+        }
+      </script>
+
+      <style type="text/css">
+        /* Dialog styles */
+
+        dialog {
+          border: none;
+          border-radius: 0.25rem;
+
+          max-width: 40ch;
+        }
+
+        dialog::backdrop {
+          background-color: hsla(240, 10%, 15%, 0.3);
+        }
+
+        dialog .xButton {
+          position: absolute;
+          top: 0.7rem;
+          right: 0.7rem;
+
+          display: flex;
+
+          background: none;
+          padding: 0.175rem 0.175rem;
+
+          border: none;
+          border-radius: 0.125rem;
+
+          font-size: 1rem;
+          color: #1f1f1f;
+          border: 1px solid transparent;
+        }
+
+        dialog .xButton:hover {
+          border: 1px solid hsl(240, 10%, 80%);
+        }
+
+        button[data-type="primary"] {
+          color: white;
+          background-color: hsl(212, 95%, 50%);
+        }
+
+        button[data-type="primary"]:hover {
+          background-color: hsl(212, 95%, 60%);
+        }
+      </style>
+    </section>
+  </body>
+</html>
